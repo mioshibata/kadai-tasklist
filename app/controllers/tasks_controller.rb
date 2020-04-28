@@ -16,7 +16,7 @@ class TasksController < ApplicationController
 
     if @task.save
       flash[:success] = 'タスク が正常に作成されました'
-      redirect_to @task
+      redirect_to task_path(@task)
     else
       flash.now[:danger] = 'タスク が作成されませんでした'
       render :new
