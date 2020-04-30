@@ -1,9 +1,28 @@
 <% if logged_in? %>
-  <div class="row">
-    <div class="col-sm-8">
-      <%= render 'tasks/tasks', tasks: @tasks %>
-    
-    
+ 
+ <ul class="list-unstyled">
+  <% @tasks.each do |task| %>
+    <li class="media mb-3">
+      
+      <div class="media-body">
+        
+          <span class="text-muted">posted at <%= task.created_at %></span>
+          
+        
+          <p>id： <%= link_to task.id, task %></p>
+          <p>タスク： <%= task.content %></p>
+        
+          <p>ステータス： <%= task.status %></p>
+          <% if current_user == task.user %>
+            <%= link_to "Delete", task, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger' %>
+          <% end %>
+      </div>
+    </li>
+  <% end %>
+  <%= paginate @tasks %>
+ </ul>
+
+
       <%= link_to '新規タスクの投稿', new_task_path %>
     </div>
   </div>
